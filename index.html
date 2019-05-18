@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<head>
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+<link rel="stylesheet" href="/style.css" />
+<script src="/client.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/16.6.3/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.6.3/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>   
+</head>
+<body>
+  <div id="heads">
+    <div id="box">  
+    </div>       
+  </div>
+
+<script type="text/jsx">
+var myObj={clear: "", divide: "/", multiply: "*", seven: 7, eight: 8, nine: 9, subtract: "-", four: 4, five: 5, six: 6, add: "+", one: 1, two: 2, three: 3, equals: "=", zero: 0, decimal: "."}
+
+
+class MyComponent extends React.Component{
+  constructor(props){
+    super(props);
+    this.state={input: 0, initial: "", myArr: []}
+    this.myFunc=this.myFunc.bind(this);    this.myFunc1=this.myFunc1.bind(this); this.myFunc2=this.myFunc2.bind(this);
+    
+  }
+  
+  myFunc= function(event){
+    document.getElementById("rD").style.marginTop = "5px";
+    document.getElementById("rD").style.marginBottom = "-5px";    
+    document.getElementById("display").style.marginBottom = "-5px";
+  
+    var myAR= this.state.myArr;
+    var inP= this.state.input;
+ 
+   for(var p=0;p<myAR.length;p++){
+      if(myAR[p]== "="){
+      this.setState({myArr: inP});
+      this.setState({input: inP}); 
+        myAR= inP; 
+      }
+  } 
+    
+    
+  if(myAR[0]=="="){
+    myAR.shift();
+    this.setState({input: myA})
+     }
+  if(myAR[0]=="NAN" && myAR.length==1){
+     if (event.target.id != "add" && event.target.id !="subtract" && event.target.id !="multiply" && event.target.id !="divide") {
+       var empty=[]; var inp="";
+       this.setState({myArr: empty, input: inp}); myAR= empty; inP= inp; 
+     }
+    
+     }    
+    
+    
+var leng= myAR.length;
+var lengt= myAR.length -1;
+
+    if(myAR[lengt]!= undefined){   
+      if((myAR[lengt]=="+" || myAR[lengt]=="-" || myAR[lengt]=="*" || myAR[lengt]=="/") && (event.target.id=="divide" || event.target.id=="multiply" || event.target.id=="subtract" || event.target.id=="add" ) ){
+      var change= myAR;
+        change= change.pop();
+      this.setState({myArr: change});       
+}
+    }
+    var arry= myAR.concat(myObj[event.target.id]);
+
+    this.setState({myArr: arry});
+    var magic= []; //alert(this.state.myArr.length);
+ for(var i=0; i<arry.length; i++){
+   if(magic[0] =="/" || magic[0] =="*" || magic[0] =="-" || magic[0] =="+"){
+    magic=[]; 
+   }   
+   if(arry[i] !="/" && arry[i] !="*" && arry[i] !="-" && arry[i] !="+"){
+    magic.push(arry[i]); 
+   }
+   if(arry[i] =="/" || arry[i] =="*" || arry[i] =="-" || arry[i] =="+"){
+    magic=[];
+    magic.push(arry[i]); 
+   }   
+ }   
+
+    this.setState({input: magic});
+
+    if(myAR[0]==undefined && event.target.id=="zero"){
+     myAR=[];
+     inP=0;
+      this.setState({myArr: myAR});
+      this.setState({input: inP});     
+     }    
+    
+      if(event.target.id=="decimal"){
+
+       for(var z= myAR.length-1; z>=0 ;z--){
+        if(myAR[z]=="*" || myAR[z]=="-" || myAR[z]=="+" || myAR[z]=="/"){ z=-100;                                        }
+        if(myAR[z] == "."){
+      this.setState({myArr: this.state.myArr});
+      this.setState({input: this.state.input}); 
+         } 
+         }
+        
+     }
+    
+    
+
+  };
+
+  myFunc1= function(event){
+    document.getElementById("rD").style.marginTop = "0px";
+    document.getElementById("rD").style.marginBottom = "0px";    
+    document.getElementById("display").style.marginBottom = "16px";  
+  
+    this.setState({myArr: []});
+    this.setState({input: 0});
+  };
+
+  myFunc2= function(event){
+    var myAR2= this.state.myArr;
+    var inP2= this.state.input;    
+
+var newArr= myAR2;
+    if(newArr.indexOf("*")>=0 || newArr.indexOf("/")>=0){
+      while(newArr.indexOf("*")>=0 || newArr.indexOf("/")>=0){
+    if(newArr.indexOf("*")>=0){
+      var mid= newArr.indexOf("*");
+      var before=[];
+      var after=[];
+      var result1=[];
+      var result2=[];
+      for(var a= mid-1; a>=0 ;a--){
+        if(newArr[a]!="*" && newArr[a]!="-" && newArr[a]!="+" && newArr[a]!="/"){ result1.unshift(newArr[a]);
+                                                                              }else {before=newArr.slice(0,a+1);; a=-10000000;}
+      }
+      
+      for(var a= mid+1; a<=newArr.length ;a++){
+        if(newArr[a]!="*" && newArr[a]!="-" && newArr[a]!="+" && newArr[a]!="/"){ result2.push(newArr[a])
+                                                                                }else {after=newArr.slice(a,); a=10000000;}      
+      }     
+
+    result1=result1.join('');
+    result2=result2.join('');
+    result1=result1*result2;
+    newArr=before.concat(result1).concat(after); 
+
+    }  
+    if(newArr.indexOf("/")>=0){
+      var mida= newArr.indexOf("/");
+      var beforea=[];
+      var aftera=[];
+      var result1a=[];
+      var result2a=[]; 
+      
+      for(var a= mida-1; a>=0 ;a--){
+        if(newArr[a]!="*" && newArr[a]!="-" && newArr[a]!="+" && newArr[a]!="/"){ result1a.unshift(newArr[a]);                                                                      }else {beforea=newArr.slice(0,a+1); a=-10000;}
+      }
+      
+      for(var a= mida+1; a<=newArr.length ;a++){
+        if(newArr[a]!="*" && newArr[a]!="-" && newArr[a]!="+" && newArr[a]!="/"){ result2a.push(newArr[a])
+                                                                                }else {aftera=newArr.slice(a,); a=1000000;}
+      }     
+      
+    result1a=result1a.join(''); 
+    result2a=result2a.join('');
+    result1a=result1a/result2a;
+    newArr=beforea.concat(result1a).concat(aftera);        
+    }
+     }  
+    }
+    
+    if(newArr.indexOf("+")>=0 || newArr.indexOf("-")>=0){
+      while(newArr.indexOf("+")>=0 || newArr.indexOf("-")>=0){
+    if(newArr.indexOf("+")>=0){
+      var mid= newArr.indexOf("+");
+      var before=[];
+      var after=[];
+      var result1=[];
+      var result2=[]
+      
+      for(var a= mid-1; a>=0 ;a--){
+        if((newArr[a]!="*" && newArr[a]!="+" && newArr[a]!="/")  || (a==0 && newArr[a]=="-")  ){  result1.unshift(newArr[a])
+if(newArr[a]=="-" ){before=newArr.slice(0,a+1); a= -1000}                                                            }else {before=newArr.slice(0,a+1); a= -10000}
+      }
+      
+      for(var a= mid+1; a<=newArr.length ;a++){
+        if(newArr[a]!="*" && newArr[a]!="-" && newArr[a]!="+" && newArr[a]!="/"){ result2.push(newArr[a])
+                                                                                }else {after=newArr.slice(a,); a=10000000;}
+      }     
+
+    result1=result1.join('');
+      result1=Number(result1);
+    result2=result2.join('');
+      result2=Number(result2);
+    result1=result1+result2;
+result1=result1.toString();
+      if(result1[0] == "-"){
+           
+    result1.split('');
+    result1=result1.slice(1,);    
+      }
+   
+      newArr=before.concat(result1).concat(after);  
+    }  
+    if(newArr.indexOf("-")>=0){
+      var mid= newArr.indexOf("-");
+      var before=[];
+      var after=[];
+      var result1=[];
+      var result2=[]
+      
+      for(var a= mid-1; a>=0 ;a--){
+        if((newArr[a]!="*" && newArr[a]!="-" && newArr[a]!="+" && newArr[a]!="/") || (a==0 && newArr[a]=="-")  ){ result1.unshift(newArr[a])
+                                                                                }else {before=newArr.slice(0,a+1); a=-10000}
+      }
+      
+      for(var a= mid+1; a<=newArr.length ;a++){
+        if(newArr[a]!="*" && newArr[a]!="-" && newArr[a]!="+" && newArr[a]!="/"){ result2.push(newArr[a])
+                                                                                }else {after=newArr.slice(a,); a=1000000;}
+      }     
+      
+    result1=result1.join('');
+      result1=Number(result1);
+    result2=result2.join('');
+      result2=Number(result2);
+    result1=result1-result2;
+    newArr=before.concat(result1).concat(after);        
+    }
+     }  
+    }    
+    
+    var fin =[].concat(myAR2,"=",newArr);
+    this.setState({myArr: fin});
+    this.setState({input: newArr});
+    
+    if(myAR2.length==1 && (inP2=="+" || inP2=="-" || inP2=="*" || inP2=="/") ){
+      this.setState({input:"NAN"})
+      var equ=["NAN"];
+      equ.unshift("=");
+      this.setState({myArr:equ})
+    }
+    
+  for(var p=0;p<myAR2.length;p++){
+      if(myAR2[p]== "="){
+      this.setState({myArr: myAR2});
+      this.setState({input: inP2});      
+      }
+  }
+    
+
+    
+  };
+
+  
+  render(){
+    return(
+    <div>  
+    <div>
+    <p class="rTop" id="rD">{this.state.myArr}</p>
+    <p class="rLast" id="display">{this.state.input}</p>
+    </div>      
+    <div id="calc">
+    <p className="one" id="clear" onClick={this.myFunc1}>AC</p>
+    <p className="two" id="divide" onClick={this.myFunc}>/</p> 
+    <p className="two" id="multiply" onClick={this.myFunc}>X</p>
+    <p className="four" id="seven" onClick={this.myFunc}>7</p> 
+    <p className="four" id="eight" onClick={this.myFunc}>8</p> 
+    <p className="four" id="nine" onClick={this.myFunc}>9</p> 
+    <p className="two" id="subtract" onClick={this.myFunc}>-</p>
+    <p className="four" id="four" onClick={this.myFunc}>4</p> 
+    <p className="four" id="five" onClick={this.myFunc}>5</p> 
+    <p className="four" id="six" onClick={this.myFunc}>6</p> 
+    <p className="two" id="add" onClick={this.myFunc}>+</p>    
+    <p className="four" id="one" onClick={this.myFunc}>1</p> 
+    <p className="four" id="two" onClick={this.myFunc}>2</p> 
+    <p className="four" id="three" onClick={this.myFunc}>3</p> 
+      <p className ="three" id="equals" onClick={this.myFunc2}>=</p>    
+    <p className="five" id="zero" onClick={this.myFunc}>0</p> 
+    <p className="four" id="decimal" onClick={this.myFunc}>.</p>     
+    </div>
+    </div>    
+    );
+  }
+}
+
+
+
+ReactDOM.render(<MyComponent />, document.getElementById('box'));  
+  
+  
+</script>  
+</body>
