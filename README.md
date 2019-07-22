@@ -73,7 +73,7 @@ It can perform basic mathematic operations (e.g. addition, subtraction, multipli
 
 Reach out to me at one of the following places!
 
-- Twitter at [`@sean13nay`](https://twitter.com/sean13nay?lang=en)
+- Twitter at [`@wwinvestingllc`](https://twitter.com/wwinvestingllc?lang=en)
 - Github at [`seansangh`](https://github.com/seansangh)
 
 ---
